@@ -1,0 +1,40 @@
+{
+   "name": "@heatboom/heat-auction-sdk",
+ "version": "1.0.0",
+ "description": "Heat Auction System SDK - Solana auction bidding functionality",
+ "main": "dist/index.js",
+ "types": "dist/index.d.ts",
+   "files": [
+    "dist/**/*"
+  ],
+   "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "example:bid": "ts-node src/scripts/example-place-bid.ts",
+    "example:query": "ts-node src/scripts/example-query-auction.ts",
+    "example:events": "ts-node src/scripts/example-event-listening.ts"
+  },
+ "keywords": ["solana", "auction", "heat", "sdk", "bidding", "web3"],
+ "author": "heatboom",
+ "license": "MIT",
+   "repository": {
+    "type": "git",
+    "url": "https://github.com/30sec-heat/heat-auction-sdk"
+  },
+
+   "dependencies": {
+    "@coral-xyz/anchor": "^0.31.1",
+    "@metaplex-foundation/mpl-token-metadata": "^3.2.1",
+    "@solana/spl-token": "^0.4.13",
+    "@solana/web3.js": "^1.95.3"
+  },
+ "devDependencies": {
+   "@types/node": "^20.10.0",
+   "ts-node": "^10.9.2",
+   "typescript": "^5.6.3"
+ },
+ "peerDependencies": {
+   "@coral-xyz/anchor": "^0.31.1",
+   "@solana/web3.js": "^1.95.3"
+ }
+}

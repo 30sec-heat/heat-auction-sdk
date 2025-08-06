@@ -1,0 +1,2562 @@
+{
+  "address": "9Ky8dWgozFkGQJBUfrgEy3zxbMmXdX5XYCV6FL4VUXjC",
+  "metadata": {
+    "name": "bomboclat",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "claim_after_finalization",
+      "discriminator": [
+        228,
+        112,
+        62,
+        191,
+        95,
+        234,
+        28,
+        85
+      ],
+      "accounts": [
+        {
+          "name": "auction_state",
+          "writable": true
+        },
+        {
+          "name": "auction_data"
+        },
+        {
+          "name": "slot_bid",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  108,
+                  111,
+                  116,
+                  95,
+                  98,
+                  105,
+                  100
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction_state.auction_data",
+                "account": "AuctionState"
+              },
+              {
+                "kind": "arg",
+                "path": "slot_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "auction_escrow",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  117,
+                  99,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction_state.auction_data",
+                "account": "AuctionState"
+              }
+            ]
+          }
+        },
+        {
+          "name": "treasury_token_account",
+          "writable": true
+        },
+        {
+          "name": "claimer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "claimer_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "claimer"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "fee_receiver",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "slot_id",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "close_auction_accounts",
+      "discriminator": [
+        137,
+        228,
+        185,
+        246,
+        164,
+        141,
+        146,
+        22
+      ],
+      "accounts": [
+        {
+          "name": "auction_state",
+          "writable": true
+        },
+        {
+          "name": "auction_data",
+          "writable": true
+        },
+        {
+          "name": "auction_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  117,
+                  99,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction_state.auction_data",
+                "account": "AuctionState"
+              }
+            ]
+          }
+        },
+        {
+          "name": "fee_receiver",
+          "writable": true
+        },
+        {
+          "name": "treasury_authority",
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "create_token_and_auction",
+      "discriminator": [
+        2,
+        117,
+        243,
+        136,
+        101,
+        39,
+        140,
+        197
+      ],
+      "accounts": [
+        {
+          "name": "mint",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "auction_data",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "auction_state",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "auction_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  117,
+                  99,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction_data"
+              }
+            ]
+          }
+        },
+        {
+          "name": "treasury_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "auction_escrow"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "treasury_authority_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "treasury_authority"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "treasury_authority"
+        },
+        {
+          "name": "creator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "name": "uri",
+          "type": "string"
+        },
+        {
+          "name": "duration_option",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "distribute_protocol_fees",
+      "discriminator": [
+        209,
+        221,
+        19,
+        223,
+        218,
+        191,
+        130,
+        148
+      ],
+      "accounts": [
+        {
+          "name": "auction_state"
+        },
+        {
+          "name": "auction_data"
+        },
+        {
+          "name": "auction_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  117,
+                  99,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction_state.auction_data",
+                "account": "AuctionState"
+              }
+            ]
+          }
+        },
+        {
+          "name": "fee_receiver",
+          "writable": true
+        },
+        {
+          "name": "treasury_authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "end_auction",
+      "discriminator": [
+        252,
+        110,
+        101,
+        234,
+        66,
+        104,
+        28,
+        87
+      ],
+      "accounts": [
+        {
+          "name": "auction_data",
+          "writable": true
+        },
+        {
+          "name": "auction_state",
+          "writable": true
+        },
+        {
+          "name": "treasury_authority",
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "get_sol_for_mig",
+      "discriminator": [
+        166,
+        9,
+        115,
+        175,
+        30,
+        67,
+        94,
+        118
+      ],
+      "accounts": [
+        {
+          "name": "auction_state"
+        },
+        {
+          "name": "auction_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  117,
+                  99,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction_state.auction_data",
+                "account": "AuctionState"
+              }
+            ]
+          }
+        },
+        {
+          "name": "treasury_authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "outbid",
+      "discriminator": [
+        41,
+        93,
+        237,
+        83,
+        211,
+        186,
+        9,
+        122
+      ],
+      "accounts": [
+        {
+          "name": "auction_state",
+          "writable": true
+        },
+        {
+          "name": "auction_data"
+        },
+        {
+          "name": "slot_bid",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  108,
+                  111,
+                  116,
+                  95,
+                  98,
+                  105,
+                  100
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction_state.auction_data",
+                "account": "AuctionState"
+              },
+              {
+                "kind": "arg",
+                "path": "slot_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "bidder",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "bidder_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "bidder"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "auction_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  117,
+                  99,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction_state.auction_data",
+                "account": "AuctionState"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "previous_bidder",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "slot_id",
+          "type": "u64"
+        },
+        {
+          "name": "bid_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "place_first_bid",
+      "discriminator": [
+        50,
+        237,
+        83,
+        117,
+        143,
+        191,
+        125,
+        217
+      ],
+      "accounts": [
+        {
+          "name": "auction_state",
+          "writable": true
+        },
+        {
+          "name": "auction_data"
+        },
+        {
+          "name": "slot_bid",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  108,
+                  111,
+                  116,
+                  95,
+                  98,
+                  105,
+                  100
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction_data"
+              },
+              {
+                "kind": "arg",
+                "path": "slot_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "bidder",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "bidder_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "bidder"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "auction_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  117,
+                  99,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction_data"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "slot_id",
+          "type": "u64"
+        },
+        {
+          "name": "bid_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "wrap_up_failed",
+      "discriminator": [
+        224,
+        237,
+        187,
+        3,
+        76,
+        20,
+        94,
+        235
+      ],
+      "accounts": [
+        {
+          "name": "auction_state",
+          "writable": true
+        },
+        {
+          "name": "auction_data",
+          "writable": true
+        },
+        {
+          "name": "auction_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  117,
+                  99,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction_state.auction_data",
+                "account": "AuctionState"
+              }
+            ]
+          }
+        },
+        {
+          "name": "slot_bid",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  108,
+                  111,
+                  116,
+                  95,
+                  98,
+                  105,
+                  100
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction_state.auction_data",
+                "account": "AuctionState"
+              },
+              {
+                "kind": "arg",
+                "path": "slot_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "fee_receiver",
+          "writable": true
+        },
+        {
+          "name": "bidder",
+          "writable": true
+        },
+        {
+          "name": "treasury_authority",
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "slot_id",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "wrap_up_successful",
+      "discriminator": [
+        191,
+        100,
+        35,
+        201,
+        58,
+        139,
+        139,
+        241
+      ],
+      "accounts": [
+        {
+          "name": "auction_state",
+          "writable": true
+        },
+        {
+          "name": "auction_data",
+          "writable": true
+        },
+        {
+          "name": "auction_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  117,
+                  99,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction_state.auction_data",
+                "account": "AuctionState"
+              }
+            ]
+          }
+        },
+        {
+          "name": "treasury_token_account",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "writable": true
+        },
+        {
+          "name": "slot_bid",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  108,
+                  111,
+                  116,
+                  95,
+                  98,
+                  105,
+                  100
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction_state.auction_data",
+                "account": "AuctionState"
+              },
+              {
+                "kind": "arg",
+                "path": "slot_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "fee_receiver",
+          "writable": true
+        },
+        {
+          "name": "bidder",
+          "writable": true
+        },
+        {
+          "name": "bidder_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "bidder"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "treasury_authority",
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "slot_id",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "AuctionData",
+      "discriminator": [
+        72,
+        15,
+        100,
+        35,
+        242,
+        55,
+        1,
+        93
+      ]
+    },
+    {
+      "name": "AuctionState",
+      "discriminator": [
+        252,
+        227,
+        205,
+        147,
+        72,
+        64,
+        250,
+        126
+      ]
+    },
+    {
+      "name": "Escrow",
+      "discriminator": [
+        31,
+        213,
+        123,
+        187,
+        186,
+        22,
+        218,
+        155
+      ]
+    },
+    {
+      "name": "SlotBid",
+      "discriminator": [
+        86,
+        88,
+        100,
+        119,
+        88,
+        135,
+        143,
+        98
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "AuctionAccountsClosed",
+      "discriminator": [
+        12,
+        143,
+        196,
+        60,
+        6,
+        34,
+        238,
+        87
+      ]
+    },
+    {
+      "name": "AuctionEnded",
+      "discriminator": [
+        91,
+        165,
+        139,
+        202,
+        204,
+        215,
+        92,
+        52
+      ]
+    },
+    {
+      "name": "AuctionExtended",
+      "discriminator": [
+        204,
+        229,
+        238,
+        200,
+        189,
+        21,
+        50,
+        41
+      ]
+    },
+    {
+      "name": "AuctionFinalized",
+      "discriminator": [
+        136,
+        160,
+        117,
+        237,
+        77,
+        211,
+        136,
+        28
+      ]
+    },
+    {
+      "name": "AuctionInitialized",
+      "discriminator": [
+        18,
+        7,
+        64,
+        239,
+        134,
+        184,
+        173,
+        108
+      ]
+    },
+    {
+      "name": "AuctionTypeDecided",
+      "discriminator": [
+        81,
+        119,
+        91,
+        43,
+        228,
+        106,
+        30,
+        65
+      ]
+    },
+    {
+      "name": "AuctionWrapUp",
+      "discriminator": [
+        15,
+        17,
+        203,
+        54,
+        251,
+        82,
+        1,
+        125
+      ]
+    },
+    {
+      "name": "BidPlaced",
+      "discriminator": [
+        135,
+        53,
+        176,
+        83,
+        193,
+        69,
+        108,
+        61
+      ]
+    },
+    {
+      "name": "ProtocolFeesDistributed",
+      "discriminator": [
+        40,
+        79,
+        148,
+        12,
+        160,
+        223,
+        149,
+        93
+      ]
+    },
+    {
+      "name": "RefundClaimed",
+      "discriminator": [
+        136,
+        64,
+        242,
+        99,
+        4,
+        244,
+        208,
+        130
+      ]
+    },
+    {
+      "name": "RefundProcessed",
+      "discriminator": [
+        203,
+        88,
+        236,
+        233,
+        192,
+        178,
+        57,
+        161
+      ]
+    },
+    {
+      "name": "SlotMarkedClaimable",
+      "discriminator": [
+        58,
+        201,
+        138,
+        152,
+        27,
+        44,
+        77,
+        236
+      ]
+    },
+    {
+      "name": "SolTransferredToTreasury",
+      "discriminator": [
+        34,
+        221,
+        54,
+        21,
+        184,
+        81,
+        152,
+        167
+      ]
+    },
+    {
+      "name": "TokensClaimed",
+      "discriminator": [
+        25,
+        128,
+        244,
+        55,
+        241,
+        136,
+        200,
+        91
+      ]
+    },
+    {
+      "name": "TokensDistributed",
+      "discriminator": [
+        117,
+        252,
+        224,
+        3,
+        212,
+        156,
+        207,
+        43
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidEscrowPDA",
+      "msg": "Invalid escrow PDA provided"
+    },
+    {
+      "code": 6001,
+      "name": "AccountClosed",
+      "msg": "Account is closed or has zero lamports"
+    },
+    {
+      "code": 6002,
+      "name": "TreasuryDoesNotHoldAllSupply",
+      "msg": "Treasury does not hold the required token supply"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidAuctionData",
+      "msg": "Invalid auction data provided"
+    },
+    {
+      "code": 6004,
+      "name": "InvalidTokenUri",
+      "msg": "Invalid token URI provided"
+    },
+    {
+      "code": 6005,
+      "name": "InvalidProgramId",
+      "msg": "Invalid program ID provided"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidMetadataPDA",
+      "msg": "Invalid metadata PDA"
+    },
+    {
+      "code": 6007,
+      "name": "BidTooLow",
+      "msg": "Bid amount is too low"
+    },
+    {
+      "code": 6008,
+      "name": "BidTooHigh",
+      "msg": "Bid amount is too high"
+    },
+    {
+      "code": 6009,
+      "name": "InvalidSlotId",
+      "msg": "Invalid slot ID"
+    },
+    {
+      "code": 6010,
+      "name": "ReentrancyDetected",
+      "msg": "Reentrancy detected"
+    },
+    {
+      "code": 6011,
+      "name": "InvalidEscrowAccount",
+      "msg": "Invalid escrow account"
+    },
+    {
+      "code": 6012,
+      "name": "ArithmeticOverflow",
+      "msg": "Arithmetic overflow"
+    },
+    {
+      "code": 6013,
+      "name": "InsufficientBalance",
+      "msg": "Insufficient balance for operation"
+    },
+    {
+      "code": 6014,
+      "name": "AuctionAlreadyActive",
+      "msg": "Auction is already active"
+    },
+    {
+      "code": 6015,
+      "name": "AuctionNotActive",
+      "msg": "Auction is not active"
+    },
+    {
+      "code": 6016,
+      "name": "CannotBidAgainstSelf",
+      "msg": "Cannot outbid yourself"
+    },
+    {
+      "code": 6017,
+      "name": "BidIncrementTooHigh",
+      "msg": "Fat finger protection triggered"
+    },
+    {
+      "code": 6018,
+      "name": "InvalidBidderAccount",
+      "msg": "Invalid bidder account"
+    },
+    {
+      "code": 6019,
+      "name": "DuplicateMutableAccounts",
+      "msg": "Duplicate accounts detected"
+    },
+    {
+      "code": 6020,
+      "name": "AuctionNotReadyToFinalize",
+      "msg": "Auction is not ready to finalize"
+    },
+    {
+      "code": 6021,
+      "name": "InvalidBidAmount",
+      "msg": "Invalid bid amount"
+    },
+    {
+      "code": 6022,
+      "name": "ClaimPeriodExpired",
+      "msg": "Claim period has expired"
+    },
+    {
+      "code": 6023,
+      "name": "InsufficientEscrowBalance",
+      "msg": "Insufficient escrow balance"
+    },
+    {
+      "code": 6024,
+      "name": "AuctionAlreadyFinalized",
+      "msg": "Auction is already finalized"
+    },
+    {
+      "code": 6025,
+      "name": "TokensAlreadyDistributed",
+      "msg": "Tokens have already been distributed"
+    },
+    {
+      "code": 6026,
+      "name": "InsufficientTokenBalance",
+      "msg": "Insufficient token balance"
+    },
+    {
+      "code": 6027,
+      "name": "UnauthorizedCaller",
+      "msg": "Unauthorized caller"
+    },
+    {
+      "code": 6028,
+      "name": "DeserializationFailed",
+      "msg": "Deserialization failed"
+    },
+    {
+      "code": 6029,
+      "name": "InvalidBidderTokenAccount",
+      "msg": "Invalid bidder token account"
+    },
+    {
+      "code": 6030,
+      "name": "TokenMintMismatch",
+      "msg": "Token mint mismatch"
+    },
+    {
+      "code": 6031,
+      "name": "AccountAlreadyInitialized",
+      "msg": "Account is already initialized"
+    },
+    {
+      "code": 6032,
+      "name": "SlotNotClaimable",
+      "msg": "Slot is not claimable"
+    },
+    {
+      "code": 6033,
+      "name": "InvalidTreasuryAuthority",
+      "msg": "Invalid treasury authority"
+    },
+    {
+      "code": 6034,
+      "name": "ClaimPeriodNotExpired",
+      "msg": "Claim period has not expired"
+    },
+    {
+      "code": 6035,
+      "name": "AuctionFailed",
+      "msg": "Auction has not reached the required amount to migrate"
+    },
+    {
+      "code": 6036,
+      "name": "AuctionSuccessful",
+      "msg": "Auction is successful and will migrate"
+    },
+    {
+      "code": 6037,
+      "name": "AuctionNotFinalized",
+      "msg": "Auction not finalized"
+    },
+    {
+      "code": 6038,
+      "name": "InvalidAuctionDuration",
+      "msg": "Auction should last 1m 1h or 1d"
+    },
+    {
+      "code": 6039,
+      "name": "AllSlotsMustBeProcessed",
+      "msg": "Process all slots before finalizing"
+    },
+    {
+      "code": 6040,
+      "name": "AlreadyTransferred",
+      "msg": "SOL has already been transferred to treasury"
+    },
+    {
+      "code": 6041,
+      "name": "FeesAlreadyDistributed",
+      "msg": "Protocol fees have already been distributed"
+    },
+    {
+      "code": 6042,
+      "name": "SolNotYetTransferred",
+      "msg": "SOL must be transferred to treasury before distributing fees"
+    },
+    {
+      "code": 6043,
+      "name": "FeesNotDistributed",
+      "msg": "Fees must be distributed before closing accounts"
+    }
+  ],
+  "types": [
+    {
+      "name": "AuctionAccountsClosed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "rent_recovered",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AuctionData",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "creator",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "auction_duration",
+            "type": "i64"
+          },
+          {
+            "name": "max_bid_increment",
+            "type": "u64"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "is_initialized",
+            "type": "bool"
+          },
+          {
+            "name": "auction_active",
+            "type": "bool"
+          },
+          {
+            "name": "fee_receiver",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AuctionEnded",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AuctionExtended",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "new_end_time",
+            "type": "i64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AuctionFinalized",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "total_volume",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AuctionInitialized",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "creator",
+            "type": "pubkey"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "token_name",
+            "type": "string"
+          },
+          {
+            "name": "token_symbol",
+            "type": "string"
+          },
+          {
+            "name": "token_uri",
+            "type": "string"
+          },
+          {
+            "name": "auction_duration",
+            "type": "i64"
+          },
+          {
+            "name": "max_bid_increment",
+            "type": "u64"
+          },
+          {
+            "name": "legendary_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "artefact_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "rare_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "magic_tokens",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AuctionState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "creator",
+            "type": "pubkey"
+          },
+          {
+            "name": "auction_data",
+            "type": "pubkey"
+          },
+          {
+            "name": "start_time",
+            "type": "i64"
+          },
+          {
+            "name": "end_time",
+            "type": "i64"
+          },
+          {
+            "name": "max_bid_increment",
+            "type": "u64"
+          },
+          {
+            "name": "is_active",
+            "type": "bool"
+          },
+          {
+            "name": "is_finalized",
+            "type": "bool"
+          },
+          {
+            "name": "legendary_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "artefact_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "rare_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "magic_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "total_volume",
+            "type": "u64"
+          },
+          {
+            "name": "is_processing",
+            "type": "bool"
+          },
+          {
+            "name": "processed_slots",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AuctionTypeDecided",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "is_successful",
+            "type": "bool"
+          },
+          {
+            "name": "total_raised",
+            "type": "u64"
+          },
+          {
+            "name": "minimum_required",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AuctionWrapUp",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "lamports_recovered",
+            "type": "u64"
+          },
+          {
+            "name": "protocol_profit",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BidPlaced",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "bidder",
+            "type": "pubkey"
+          },
+          {
+            "name": "slot_id",
+            "type": "u64"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Escrow",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "initialized",
+            "type": "bool"
+          },
+          {
+            "name": "sol_transferred",
+            "type": "bool"
+          },
+          {
+            "name": "fees_distributed",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProtocolFeesDistributed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_receiver",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RefundClaimed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "recipient",
+            "type": "pubkey"
+          },
+          {
+            "name": "slot_id",
+            "type": "u64"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RefundProcessed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "bidder",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SlotBid",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction_data",
+            "type": "pubkey"
+          },
+          {
+            "name": "slot_id",
+            "type": "u64"
+          },
+          {
+            "name": "current_bidder",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "current_amount",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "distributed",
+            "type": "bool"
+          },
+          {
+            "name": "claimable",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SlotMarkedClaimable",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "slot_id",
+            "type": "u64"
+          },
+          {
+            "name": "bidder",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "claim_type",
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SolTransferredToTreasury",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TokensClaimed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "recipient",
+            "type": "pubkey"
+          },
+          {
+            "name": "slot_id",
+            "type": "u64"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TokensDistributed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "auction",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "recipient",
+            "type": "pubkey"
+          },
+          {
+            "name": "slot_id",
+            "type": "u64"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ]
+}
