@@ -1,6 +1,7 @@
 import { PublicKey } from '@solana/web3.js';
 import { BN } from '@coral-xyz/anchor';
 import { BaseModule } from './base';
+import { PROGRAM_ID } from '../constants';
 import { getAuctionEscrowPDA, getSlotBidPDA } from '../utils/pda';
 import { AuctionData, AuctionState, SlotBid, Escrow } from '../types';
 
@@ -98,7 +99,7 @@ export class QueriesModule extends BaseModule {
 
   async getEventsForAuction(auctionData: PublicKey, eventName?: string): Promise<any[]> {
     const events = await this.connection.getSignaturesForAddress(
-      new PublicKey('9Ky8dWgozFkGQJBUfrgEy3zxbMmXdX5XYCV6FL4VUXjC'), // PROGRAM_ID
+      PROGRAM_ID,
       {
         limit: 1000,
       }

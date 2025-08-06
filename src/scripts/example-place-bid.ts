@@ -1,15 +1,16 @@
-import { Connection, Keypair, PublicKey } from '@solana/web3.js';
-import { BomboclatSDK } from '../sdk';
+import { Keypair, PublicKey } from '@solana/web3.js';
+import { BomboclatSDK, createConnection } from '../sdk';
 import { BN } from '@coral-xyz/anchor';
 import NodeWallet from '@coral-xyz/anchor/dist/cjs/nodewallet';
 import fs from 'fs';
+import 'dotenv/config';
 
 // Example: Place bids on auction slots
 async function placeBidExample() {
   console.log('💰 Placing bid example...\n');
 
   // Setup connection and wallet
-  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+  const connection = createConnection();
   const walletKeypair = Keypair.fromSecretKey(
     Uint8Array.from(JSON.parse(fs.readFileSync(
       process.env.SOLANA_KEYPAIR_PATH || `${require('os').homedir()}/.config/solana/id.json`, 

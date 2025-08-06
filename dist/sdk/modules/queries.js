@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QueriesModule = void 0;
-const web3_js_1 = require("@solana/web3.js");
 const anchor_1 = require("@coral-xyz/anchor");
 const base_1 = require("./base");
+const constants_1 = require("../constants");
 const pda_1 = require("../utils/pda");
 class QueriesModule extends base_1.BaseModule {
     // Data Fetching Methods
@@ -80,8 +80,7 @@ class QueriesModule extends base_1.BaseModule {
             .sort((a, b) => a.slotId - b.slotId);
     }
     async getEventsForAuction(auctionData, eventName) {
-        const events = await this.connection.getSignaturesForAddress(new web3_js_1.PublicKey('9Ky8dWgozFkGQJBUfrgEy3zxbMmXdX5XYCV6FL4VUXjC'), // PROGRAM_ID
-        {
+        const events = await this.connection.getSignaturesForAddress(constants_1.PROGRAM_ID, {
             limit: 1000,
         });
         const parsedEvents = [];

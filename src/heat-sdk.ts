@@ -16,13 +16,20 @@ import {
 import { Program, AnchorProvider, Idl, BN, Wallet } from '@coral-xyz/anchor';
 import { Bomboclat } from './idl/bomboclat';
 
-// For v3 of mpl-token-metadata
-const TOKEN_METADATA_PROGRAM_ID = new PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s');
+// Import from constants module (which has env config)
+import { 
+  PROGRAM_ID,
+  FEE_RECEIVER_PUBKEY, 
+  TREASURY_AUTHORITY_PUBKEY,
+  TOKEN_METADATA_PROGRAM_ID 
+} from './sdk/constants';
 
-// Program Constants
-export const PROGRAM_ID = new PublicKey('9Ky8dWgozFkGQJBUfrgEy3zxbMmXdX5XYCV6FL4VUXjC');
-export const FEE_RECEIVER_PUBKEY = new PublicKey('9YVR7r8XrS9zQUTWR2jNfWMSMHVyoQus2ro5fTMwaDqA');
-export const TREASURY_AUTHORITY_PUBKEY = new PublicKey('GLqrCSL5wMvZjpPUbhcGKSBjfk1HzxRo3N81mr2adPvt');
+// Re-export for backward compatibility
+export { 
+  PROGRAM_ID,
+  FEE_RECEIVER_PUBKEY, 
+  TREASURY_AUTHORITY_PUBKEY 
+};
 
 // Constants from the program
 export const CONSTANTS = {

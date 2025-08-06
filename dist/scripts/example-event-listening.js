@@ -7,11 +7,12 @@ const web3_js_1 = require("@solana/web3.js");
 const sdk_1 = require("../sdk");
 const nodewallet_1 = __importDefault(require("@coral-xyz/anchor/dist/cjs/nodewallet"));
 const fs_1 = __importDefault(require("fs"));
+require("dotenv/config");
 // Example: Listen to auction events
 async function eventListeningExample() {
     console.log('📡 Event listening example...\n');
     // Setup connection and wallet
-    const connection = new web3_js_1.Connection('http://127.0.0.1:8899', 'confirmed');
+    const connection = (0, sdk_1.createConnection)();
     const walletKeypair = web3_js_1.Keypair.fromSecretKey(Uint8Array.from(JSON.parse(fs_1.default.readFileSync(process.env.SOLANA_KEYPAIR_PATH || `${require('os').homedir()}/.config/solana/id.json`, 'utf8'))));
     const wallet = new nodewallet_1.default(walletKeypair);
     // Load IDL

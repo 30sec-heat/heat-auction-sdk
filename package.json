@@ -1,11 +1,12 @@
 {
    "name": "@heatboom/heat-auction-sdk",
- "version": "1.0.0",
+ "version": "1.1.0",
  "description": "Heat Auction System SDK - Solana auction bidding functionality",
  "main": "dist/index.js",
  "types": "dist/index.d.ts",
    "files": [
-    "dist/**/*"
+    "dist/**/*",
+    ".env.example"
   ],
    "scripts": {
     "build": "tsc",
@@ -26,7 +27,8 @@
     "@coral-xyz/anchor": "^0.31.1",
     "@metaplex-foundation/mpl-token-metadata": "^3.2.1",
     "@solana/spl-token": "^0.4.13",
-    "@solana/web3.js": "^1.95.3"
+    "@solana/web3.js": "^1.95.3",
+    "dotenv": "^16.3.1"
   },
  "devDependencies": {
    "@types/node": "^20.10.0",

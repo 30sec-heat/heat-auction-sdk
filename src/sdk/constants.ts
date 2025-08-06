@@ -3,12 +3,20 @@ import { BN } from '@coral-xyz/anchor';
 import { LAMPORTS_PER_SOL } from '@solana/web3.js';
 
 // Program IDs
-export const PROGRAM_ID = new PublicKey('9Ky8dWgozFkGQJBUfrgEy3zxbMmXdX5XYCV6FL4VUXjC');
-export const FEE_RECEIVER_PUBKEY = new PublicKey('9YVR7r8XrS9zQUTWR2jNfWMSMHVyoQus2ro5fTMwaDqA');
-export const TREASURY_AUTHORITY_PUBKEY = new PublicKey('GLqrCSL5wMvZjpPUbhcGKSBjfk1HzxRo3N81mr2adPvt');
+export const PROGRAM_ID = new PublicKey(
+  process.env.PROGRAM_ID || '9Ky8dWgozFkGQJBUfrgEy3zxbMmXdX5XYCV6FL4VUXjC'
+);
+export const FEE_RECEIVER_PUBKEY = new PublicKey(
+  process.env.FEE_RECEIVER_PUBKEY || '9YVR7r8XrS9zQUTWR2jNfWMSMHVyoQus2ro5fTMwaDqA'
+);
+export const TREASURY_AUTHORITY_PUBKEY = new PublicKey(
+  process.env.TREASURY_AUTHORITY_PUBKEY || 'GLqrCSL5wMvZjpPUbhcGKSBjfk1HzxRo3N81mr2adPvt'
+);
 
 // For v3 of mpl-token-metadata
-export const TOKEN_METADATA_PROGRAM_ID = new PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s');
+export const TOKEN_METADATA_PROGRAM_ID = new PublicKey(
+  process.env.TOKEN_METADATA_PROGRAM_ID || 'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'
+);
 
 // Program Constants
 export const CONSTANTS = {
