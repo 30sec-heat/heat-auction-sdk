@@ -1,6 +1,6 @@
 {
    "name": "@heatboom/heat-auction-sdk",
- "version": "1.1.2",
+ "version": "1.1.3",
  "description": "Heat Auction System SDK - Solana auction bidding functionality",
  "main": "dist/index.js",
  "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
  "license": "MIT",
    "repository": {
     "type": "git",
-    "url": "https://github.com/30sec-heat/heat-auction-sdk"
+    "url": "git+https://github.com/30sec-heat/heat-auction-sdk.git"
   },
 
    "dependencies": {
