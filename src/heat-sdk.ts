@@ -447,62 +447,88 @@ export class BomboclatSDK {
   }
 
   // Wrap Up Slot (Treasury Only)
+  // Wrap Up (Treasury Only) - DEPRECATED: Use wrapUpSuccessful or wrapUpFailed instead
   async wrapUp(
+    auctionData: PublicKey,
+    slotId: number
+  ): Promise<string> {
+    console.log('⚠️ Warning: wrapUp is deprecated. Use wrapUpSuccessful or wrapUpFailed instead');
+    
+    // Determine auction success and delegate to appropriate function
+    const auctionState = await this.getAuctionState(auctionData);
+    const isSuccessful = auctionState.totalVolume.gte(new BN(50_000_000_000)); // 50 SOL minimum
+    
+    if (isSuccessful) {
+      console.log('  → Delegating to wrapUpSuccessful');
+      return this.wrapUpSuccessful(auctionData, slotId);
+    } else {
+      console.log('  → Delegating to wrapUpFailed');
+      return this.wrapUpFailed(auctionData, slotId);
+    }
+  }
+
+  // Wrap Up Successful (Treasury Only)
+  async wrapUpSuccessful(
     auctionData: PublicKey,
     slotId: number
   ): Promise<string> {
     const auctionState = await this.getAuctionState(auctionData);
     const auctionDataAccount = await this.getAuctionData(auctionData);
-    const [auctionEscrow] = getAuctionEscrowPDA(auctionData);
     const [slotBidPDA] = getSlotBidPDA(auctionData, slotId);
-    
-    const treasuryTokenAccount = await getAssociatedTokenAddress(
-      auctionState.tokenMint,
-      auctionEscrow,
-      true
-    );
-
-    // Check if slot has a bid
-    let slotBid: any = null;
-    let bidderTokenAccount: PublicKey | null = null;
-    try {
-      slotBid = await this.getSlotBid(auctionData, slotId);
-      if (slotBid.currentBidder) {
-        bidderTokenAccount = await getAssociatedTokenAddress(
-          auctionState.tokenMint,
-          slotBid.currentBidder
-        );
-      }
-    } catch {
-      // Slot doesn't exist, pass null
-    }
+    const [auctionEscrow] = getAuctionEscrowPDA(auctionData);
 
     const accounts: any = {
       auctionState: auctionState.publicKey,
       auctionData,
       auctionEscrow,
-      treasuryTokenAccount,
-      mint: auctionState.tokenMint,
+      slotBid: slotBidPDA,
       feeReceiver: auctionDataAccount.feeReceiver,
       treasuryAuthority: this.wallet.publicKey,
       systemProgram: SystemProgram.programId,
-      tokenProgram: TOKEN_PROGRAM_ID,
-      associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
     };
 
-    // Add optional accounts if they exist
-    if (slotBid) {
-      accounts.slotBid = slotBidPDA;
-    }
-    if (slotBid?.currentBidder) {
+    // Add bidder account if slot has a bidder
+    const slotBid = await this.getSlotBid(auctionData, slotId);
+    if (slotBid.currentBidder) {
       accounts.bidder = slotBid.currentBidder;
-    }
-    if (bidderTokenAccount) {
-      accounts.bidderTokenAccount = bidderTokenAccount;
     }
 
     const tx = await this.program.methods
-      .wrapUp(new BN(slotId))
+      .wrapUpSuccessful(new BN(slotId))
+      .accountsPartial(accounts)
+      .rpc();
+
+    return tx;
+  }
+
+  // Wrap Up Failed (Treasury Only)
+  async wrapUpFailed(
+    auctionData: PublicKey,
+    slotId: number
+  ): Promise<string> {
+    const auctionState = await this.getAuctionState(auctionData);
+    const auctionDataAccount = await this.getAuctionData(auctionData);
+    const [slotBidPDA] = getSlotBidPDA(auctionData, slotId);
+    const [auctionEscrow] = getAuctionEscrowPDA(auctionData);
+
+    const accounts: any = {
+      auctionState: auctionState.publicKey,
+      auctionData,
+      auctionEscrow,
+      slotBid: slotBidPDA,
+      feeReceiver: auctionDataAccount.feeReceiver,
+      treasuryAuthority: this.wallet.publicKey,
+      systemProgram: SystemProgram.programId,
+    };
+
+    // Add bidder account if slot has a bidder
+    const slotBid = await this.getSlotBid(auctionData, slotId);
+    if (slotBid.currentBidder) {
+      accounts.bidder = slotBid.currentBidder;
+    }
+
+    const tx = await this.program.methods
+      .wrapUpFailed(new BN(slotId))
       .accountsPartial(accounts)
       .rpc();
 
@@ -589,64 +615,20 @@ export class BomboclatSDK {
     return tx;
   }
 
-  // Burn Failed Auction Tokens (Treasury Only)
-  async burnFailedAuctionTokens(auctionData: PublicKey): Promise<string> {
-    const auctionState = await this.getAuctionState(auctionData);
-    const [auctionEscrow] = getAuctionEscrowPDA(auctionData);
-    const treasuryTokenAccount = await getAssociatedTokenAddress(
-      auctionState.tokenMint,
-      auctionEscrow,
-      true
-    );
 
-    const tx = await this.program.methods
-      .burnFailedAuctionTokens()
-      .accountsStrict({
-        auctionState: auctionState.publicKey,
-        auctionEscrow,
-        treasuryTokenAccount,
-        mint: auctionState.tokenMint,
-        treasuryAuthority: this.wallet.publicKey,
-        systemProgram: SystemProgram.programId,
-        tokenProgram: TOKEN_PROGRAM_ID,
-      })
-      .rpc();
-
-    return tx;
-  }
-
-  // Claim Unclaimed Tokens (Treasury Only)
-  async claimUnclaimedTokens(auctionData: PublicKey): Promise<string> {
-    const auctionState = await this.getAuctionState(auctionData);
-    const [auctionEscrow] = getAuctionEscrowPDA(auctionData);
-    const treasuryTokenAccount = await getAssociatedTokenAddress(
-      auctionState.tokenMint,
-      auctionEscrow,
-      true
-    );
-
-    const tx = await this.program.methods
-      .claimUnclaimedTokens()
-      .accountsStrict({
-        auctionState: auctionState.publicKey,
-        auctionEscrow,
-        treasuryTokenAccount,
-        mint: auctionState.tokenMint,
-        treasuryAuthority: this.wallet.publicKey,
-        systemProgram: SystemProgram.programId,
-        tokenProgram: TOKEN_PROGRAM_ID,
-        associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
-      })
-      .rpc();
-
-    return tx;
-  }
 
   // Close Auction Accounts (Treasury Only)
   async closeAuctionAccounts(auctionData: PublicKey): Promise<string> {
     const auctionState = await this.getAuctionState(auctionData);
     const auctionDataAccount = await this.getAuctionData(auctionData);
     const [auctionEscrow] = getAuctionEscrowPDA(auctionData);
+    
+    // Get treasury token account for the mint
+    const treasuryTokenAccount = await getAssociatedTokenAddress(
+      auctionState.tokenMint,
+      auctionEscrow,
+      true
+    );
 
     const tx = await this.program.methods
       .closeAuctionAccounts()
@@ -654,8 +636,11 @@ export class BomboclatSDK {
         auctionState: auctionState.publicKey,
         auctionData,
         auctionEscrow,
+        treasuryTokenAccount,
+        tokenProgram: TOKEN_PROGRAM_ID,
         feeReceiver: auctionDataAccount.feeReceiver,
         treasuryAuthority: this.wallet.publicKey,
+        systemProgram: SystemProgram.programId,
       })
       .rpc();
 

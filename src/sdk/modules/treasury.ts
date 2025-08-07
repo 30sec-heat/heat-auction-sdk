@@ -246,6 +246,13 @@ export class TreasuryModule extends BaseModule {
     const auctionState = await this.getAuctionState(auctionData);
     const auctionDataAccount = await this.getAuctionData(auctionData);
     const [auctionEscrow] = getAuctionEscrowPDA(auctionData);
+    
+    // Get treasury token account for the mint
+    const treasuryTokenAccount = await getAssociatedTokenAddress(
+      auctionState.tokenMint,
+      auctionEscrow,
+      true
+    );
 
     const tx = await this.program.methods
       .closeAuctionAccounts()
@@ -253,8 +260,11 @@ export class TreasuryModule extends BaseModule {
         auctionState: auctionState.publicKey,
         auctionData,
         auctionEscrow,
+        treasuryTokenAccount,
+        tokenProgram: TOKEN_PROGRAM_ID,
         feeReceiver: auctionDataAccount.feeReceiver,
         treasuryAuthority: this.wallet.publicKey,
+        systemProgram: SystemProgram.programId,
       })
       .rpc();
 

@@ -1,5 +1,5 @@
 {
-  "address": "9Ky8dWgozFkGQJBUfrgEy3zxbMmXdX5XYCV6FL4VUXjC",
+  "address": "HNSmVPfDWF5o4iAqP7eT7SVeQiiw8wGV2ZrANdZWFQTZ",
   "metadata": {
     "name": "bomboclat",
     "version": "0.1.0",
@@ -267,12 +267,24 @@
           }
         },
         {
+          "name": "treasury_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
           "name": "fee_receiver",
           "writable": true
         },
         {
           "name": "treasury_authority",
           "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
         }
       ],
       "args": []

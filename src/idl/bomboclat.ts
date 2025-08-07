@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/bomboclat.json`.
  */
 export type Bomboclat = {
-  "address": "9Ky8dWgozFkGQJBUfrgEy3zxbMmXdX5XYCV6FL4VUXjC",
+  "address": "HNSmVPfDWF5o4iAqP7eT7SVeQiiw8wGV2ZrANdZWFQTZ",
   "metadata": {
     "name": "bomboclat",
     "version": "0.1.0",
@@ -273,12 +273,24 @@ export type Bomboclat = {
           }
         },
         {
+          "name": "treasuryTokenAccount",
+          "writable": true
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
           "name": "feeReceiver",
           "writable": true
         },
         {
           "name": "treasuryAuthority",
           "signer": true
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
         }
       ],
       "args": []
