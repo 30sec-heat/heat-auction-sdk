@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/bomboclat.json`.
  */
 export type Bomboclat = {
-  "address": "HNSmVPfDWF5o4iAqP7eT7SVeQiiw8wGV2ZrANdZWFQTZ",
+  "address": "9Ky8dWgozFkGQJBUfrgEy3zxbMmXdX5XYCV6FL4VUXjC",
   "metadata": {
     "name": "bomboclat",
     "version": "0.1.0",
