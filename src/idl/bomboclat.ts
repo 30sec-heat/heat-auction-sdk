@@ -277,6 +277,10 @@ export type Bomboclat = {
           "writable": true
         },
         {
+          "name": "mint",
+          "writable": true
+        },
+        {
           "name": "tokenProgram",
           "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
         },

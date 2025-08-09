@@ -261,6 +261,7 @@ export class TreasuryModule extends BaseModule {
         auctionData,
         auctionEscrow,
         treasuryTokenAccount,
+        mint: auctionState.tokenMint,
         tokenProgram: TOKEN_PROGRAM_ID,
         feeReceiver: auctionDataAccount.feeReceiver,
         treasuryAuthority: this.wallet.publicKey,

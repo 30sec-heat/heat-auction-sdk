@@ -30,8 +30,12 @@ async function closeAuctionAccountsExample() {
     
     // The SDK now automatically includes:
     // - treasuryTokenAccount (derived from auction escrow + token mint)
+    // - mint (from auction_state.token_mint) ← NEW REQUIREMENT
     // - tokenProgram (TOKEN_PROGRAM_ID)
     // - systemProgram (SystemProgram.programId)
+    // 
+    // The function now burns remaining tokens before closing the token account
+    // to prevent "Non-native account can only be closed if its balance is zero" error
     
   } catch (error) {
     console.error('❌ Failed to close auction accounts:', error);

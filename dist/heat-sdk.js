@@ -316,6 +316,7 @@ class BomboclatSDK {
             auctionData,
             auctionEscrow,
             treasuryTokenAccount,
+            mint: auctionState.tokenMint,
             tokenProgram: spl_token_1.TOKEN_PROGRAM_ID,
             feeReceiver: auctionDataAccount.feeReceiver,
             treasuryAuthority: this.wallet.publicKey,
